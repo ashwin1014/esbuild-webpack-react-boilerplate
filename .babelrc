@@ -1,0 +1,47 @@
+{
+  "presets": [["@babel/preset-env", { "shippedProposals": true }], "@babel/preset-react"],
+  "plugins": [
+    "@babel/plugin-syntax-dynamic-import",
+    "@babel/plugin-proposal-optional-chaining",
+    "@babel/plugin-proposal-private-methods",
+    [
+      "@babel/plugin-transform-react-jsx",
+      {
+        "runtime": "automatic"
+      }
+    ]
+  ],
+  "env": {
+    "production": {
+      "plugins": [
+        [
+          "transform-remove-console",
+          {
+            "exclude": ["error", "warn", "info"]
+          }
+        ],
+        "transform-remove-debugger",
+        "transform-react-remove-prop-types",
+        [
+          "babel-plugin-styled-components",
+          {
+            "pure": true,
+            "displayName": false,
+            "fileName": false,
+            "ssr": false
+          }
+        ],
+        [
+          "transform-react-remove-prop-types",
+          {
+            "mode": "wrap",
+            "ignoreFilenames": ["node_modules"]
+          }
+        ]
+      ]
+    },
+    "development": {
+      "plugins": [["babel-plugin-styled-components", { "ssr": false }]]
+    }
+  }
+}

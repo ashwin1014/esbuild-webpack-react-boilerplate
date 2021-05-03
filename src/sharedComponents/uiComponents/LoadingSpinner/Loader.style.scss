@@ -1,0 +1,46 @@
+@import '../../../styles/styleUtils/variables';
+
+@keyframes bouncing-loader {
+  to {
+    opacity: 0.1;
+    transform: translate3d(0, -1rem, 0);
+  }
+}
+
+.loading-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  &.white {
+    .loader {
+      div {
+        background: $white;
+      }
+    }
+  }
+
+  .loader {
+    display: flex;
+    justify-content: center;
+    div {
+      animation: bouncing-loader 0.6s infinite alternate;
+      background: $blue;
+      border-radius: 50%;
+      height: 1rem;
+      margin: 3rem 0.2rem;
+      width: 1rem;
+      &:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+
+      &:nth-child(3) {
+        animation-delay: 0.2s;
+      }
+    }
+
+    &_message {
+      font-size: clamp($sm1-font-size, 2.5vw, $sm3-font-size);
+    }
+  }
+}

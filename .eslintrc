@@ -1,0 +1,43 @@
+{
+  "plugins": ["@babel", "import", "react", "jsx-a11y", "module-resolver", "prettier"],
+  "extends": ["airbnb", "airbnb/hooks", "plugin:prettier/recommended"],
+  "rules": {
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "max-len": [1, 130, 2, { "ignoreComments": true }],
+    "no-use-before-define": ["error", { "functions": true, "classes": true, "variables": false }],
+    "import/no-unresolved": 0,
+    "import/newline-after-import": "error",
+    "import/prefer-default-export": 0,
+    "import/no-extraneous-dependencies": ["off", { "devDependencies": false }],
+    "react/prop-types": [1, { "ignore": ["config"] }],
+    "react/require-default-props": [1, { "ignoreFunctionalComponents": true }],
+    "prettier/prettier": [
+      "error",
+      {},
+      {
+        "usePrettierrc": true
+      }
+    ]
+  },
+  "root": true,
+  "ignorePatterns": ["build", "node_modules"],
+  "env": {
+    "es6": true,
+    "browser": true
+  },
+  "parser": "@babel/eslint-parser",
+  "parserOptions": {
+    "sourceType": "module",
+    "allowImportExportEverywhere": false,
+    "ecmaFeatures": {
+      "globalReturn": false
+    },
+    "babelOptions": {
+      "configFile": "./.babelrc"
+    }
+  },
+  "globals": {
+    "Atomics": "readonly",
+    "SharedArrayBuffer": "readonly"
+  }
+}
