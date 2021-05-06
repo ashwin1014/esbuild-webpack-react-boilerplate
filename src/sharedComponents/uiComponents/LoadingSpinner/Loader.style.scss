@@ -12,17 +12,11 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  &.white {
-    .loader {
-      div {
-        background: $white;
-      }
-    }
-  }
 
   .loader {
     display: flex;
     justify-content: center;
+
     div {
       animation: bouncing-loader 0.6s infinite alternate;
       background: $blue;
@@ -30,6 +24,7 @@
       height: 1rem;
       margin: 3rem 0.2rem;
       width: 1rem;
+
       &:nth-child(2) {
         animation-delay: 0.2s;
       }
@@ -40,7 +35,15 @@
     }
 
     &_message {
-      font-size: clamp($sm1-font-size, 2.5vw, $sm3-font-size);
+      font-size: clamp($font-sm1, 2.5vw, $font-sm3);
+    }
+  }
+
+  &.white {
+    .loader {
+      div {
+        background: $white;
+      }
     }
   }
 }

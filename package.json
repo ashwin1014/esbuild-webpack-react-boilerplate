@@ -15,11 +15,11 @@
     "prepare": "husky install",
     "eslint-check": "eslint --print-config src/index.js | eslint-config-prettier-check",
     "format": "prettier --write \"**/*.+(js|jsx|json|yml|yaml|css|md|vue)\"",
-    "lint:scss": "sass-lint -v",
+    "lint:scss": "stylelint **/*.scss",
     "lint:scss:fix": "sass-lint-auto-fix --config-sass-lint .sass-lint.yml",
     "lint:js": "eslint . --ext .js,.jsx",
     "lint:js:fix": "npm run lint:js -- --fix",
-    "pre-commit": "yarn lint:scss:fix && lint-staged"
+    "pre-commit": "lint-staged"
   },
   "repository": {
     "type": "git",
@@ -31,7 +31,7 @@
       "pretty-quick --staged"
     ],
     "src/**/*.scss": [
-      "stylelint --syntax scss --fix"
+      "stylelint **/*.scss --fix"
     ]
   },
   "devDependencies": {
@@ -106,6 +106,8 @@
     "sass-loader": "^11.0.1",
     "style-loader": "^2.0.0",
     "stylelint": "^13.13.1",
+    "stylelint-config-sass-guidelines": "^8.0.0",
+    "stylelint-config-standard": "^22.0.0",
     "stylelint-scss": "^3.19.0",
     "url-loader": "^4.1.1",
     "webpack": "^5.36.2",

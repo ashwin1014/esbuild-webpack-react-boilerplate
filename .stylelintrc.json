@@ -1,9 +1,10 @@
 {
   "plugins": ["stylelint-scss"],
+  "extends": ["stylelint-config-standard"],
   "rules": {
     "scss/selector-no-redundant-nesting-selector": true,
     "scss/at-extend-no-missing-placeholder": true,
-    "at-rule-blacklist": ["debug"],
+    "at-rule-disallowed-list": ["debug"],
     "at-rule-no-unknown": null,
     "scss/at-rule-no-unknown": true
   }

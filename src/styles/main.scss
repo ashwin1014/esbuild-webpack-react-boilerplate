@@ -1,6 +1,13 @@
 @import './styleUtils/mixins';
 @import './styleUtils/variables';
 @import './styleUtils/breakpoints';
+@import './styleUtils/helperClasses';
+
+@include font-face(GilroyRegular, './fonts/Gilroy-Regular', 400, normal, ttf woff2 woff);
+@include font-face(GilroyMedium, './fonts/Gilroy-Medium', 500, normal, ttf woff2 woff);
+@include font-face(GilroySemiBold, './fonts/Gilroy-Semibold', 600, normal, ttf woff2 woff);
+@include font-face(GilroyBold, './fonts/Gilroy-Bold', 700, normal, ttf woff2 woff);
+@include font-face(GilroyExtraBold, './fonts/Gilroy-Extrabold', 700, normal, ttf woff2 woff);
 
 html,
 body {
@@ -9,12 +16,14 @@ body {
 }
 
 *,
-*:before,
-*:after {
+*::before,
+*::after {
   box-sizing: inherit;
 }
 
 html {
+  font-family: $font-regular;
+  font-size: $font-md3;
   height: 100%;
   scroll-behavior: smooth;
   width: 100%;
@@ -23,10 +32,4 @@ html {
 .app-layout {
   overflow-x: hidden;
   position: relative;
-}
-
-/* Helper classes */
-
-.d-flex {
-  display: flex;
 }

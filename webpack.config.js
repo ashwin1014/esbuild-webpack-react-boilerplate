@@ -150,29 +150,51 @@ module.exports = (_, args) => {
           use: 'file-loader?name=[name].[ext]'
         },
         {
-          oneOf: [
+          test: /\.(woff|ttf|otf|eot|woff2|svg)$/i,
+          use: [
             {
-              test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/, /\.svg$/],
-              use: {
-                loader: 'url-loader'
-              },
-              // options: {
-              //   name: 'static/media/[name].[hash:8].[ext]'
-              // }
-              type: 'asset/resource'
-            },
-            {
-              test: [/\.(woff|woff2|eot|ttf)$/],
-              use: {
-                loader: 'url-loader'
-              },
-              // options: {
-              //   name: 'static/media/[name].[hash:8].[ext]'
-              // }
-              type: 'asset/resource'
+              loader: 'file-loader',
+              options: {
+                name: 'static/media/[name].[hash:8].[ext]'
+              }
             }
-          ].filter(Boolean)
+          ]
+        },
+        {
+          test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/, /\.svg$/],
+          use: [
+            {
+              loader: 'url-loader',
+              options: {
+                name: 'static/media/[name].[hash:8].[ext]'
+              }
+            }
+          ]
         }
+        // {
+        //   oneOf: [
+        //     {
+        //       test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/, /\.svg$/],
+        //       use: {
+        //         loader: 'url-loader'
+        //       },
+        //       // options: {
+        //       //   name: 'static/media/[name].[hash:8].[ext]'
+        //       // }
+        //       type: 'asset/resource'
+        //     }
+        //     // {
+        //     //   test: [/\.(woff|woff2|eot|ttf)$/],
+        //     //   use: {
+        //     //     loader: 'url-loader'
+        //     //   },
+        //     //   // options: {
+        //     //   //   name: 'static/media/[name].[hash:8].[ext]'
+        //     //   // }
+        //     //   type: 'asset/resource'
+        //     // }
+        //   ].filter(Boolean)
+        // }
       ]
     },
     plugins: [
