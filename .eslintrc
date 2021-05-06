@@ -3,7 +3,7 @@
   "extends": ["airbnb", "airbnb/hooks", "plugin:prettier/recommended"],
   "rules": {
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
-    "max-len": [1, 130, 2, { "ignoreComments": true }],
+    "max-len": [1, 180, 2, { "ignoreComments": true }],
     "no-use-before-define": ["error", { "functions": true, "classes": true, "variables": false }],
     "import/no-unresolved": 0,
     "import/newline-after-import": "error",
