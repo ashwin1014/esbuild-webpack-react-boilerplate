@@ -2,14 +2,15 @@ import React from 'react';
 import ReactDom from 'react-dom';
 
 import { BrowserRouter } from 'react-router-dom';
-
-import App from './base/App';
+import App from './app/App';
 
 const MOUNT_NODE = document.getElementById('app');
 
 ReactDom.render(
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>,
+  <React.StrictMode>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </React.StrictMode>,
   MOUNT_NODE
 );

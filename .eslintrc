@@ -1,6 +1,6 @@
 {
-  "plugins": ["@babel", "import", "react", "jsx-a11y", "module-resolver", "prettier"],
-  "extends": ["airbnb", "airbnb/hooks", "plugin:prettier/recommended"],
+  "plugins": ["@babel", "import", "react", "jsx-a11y", "prettier"],
+  "extends": ["airbnb", "airbnb/hooks", "plugin:prettier/recommended", "plugin:import/errors", "plugin:import/warnings"],
   "rules": {
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "max-len": [1, 180, 2, { "ignoreComments": true }],
@@ -11,21 +11,61 @@
     "import/no-extraneous-dependencies": ["off", { "devDependencies": false }],
     "react/prop-types": [1, { "ignore": ["config"] }],
     "react/require-default-props": [1, { "ignoreFunctionalComponents": true }],
+    "no-nested-ternary": "off",
     "prettier/prettier": [
       "error",
       {},
       {
         "usePrettierrc": true
       }
+    ],
+    "import/no-useless-path-segments": ["error", {
+      "noUselessIndex": true
+    }],
+    // "import/order": ["error", {"groups": ["index", "sibling", "parent", "internal", "external", "builtin", "object"]}],
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "js": "never",
+        "jsx": "never",
+        "ts": "never",
+        "tsx": "never"
+      }
     ]
   },
   "root": true,
-  "ignorePatterns": ["build", "node_modules"],
+  "ignorePatterns": ["build", "node_modules", "jsconfig.json"],
   "env": {
     "es6": true,
     "browser": true
   },
   "parser": "@babel/eslint-parser",
+  "settings": {
+    "react": {
+      "version": "17.0.2"
+    },
+    "import/resolver": {
+      "webpack": {
+        "config": "webpack.config.js",
+        "resolve": {
+          "extensions": [".tsx", ".jsx", ".js", ".json"]
+        },
+        "alias": {
+          "@icons": "./src/assets/icons",
+          "@images": "./src/assets/images",
+          "@config": "./src/config",
+          "@constants": "./src/constants",
+          "@hooks": "./src/hooks",
+          "@hoc": "./src/hoc",
+          "@localization": "./src/localization",
+          "@sharedComponents": "./src/sharedComponents",
+          "@utils": "./src/utils",
+          "@pages": "./src/app/pages"
+        }
+      }
+    }
+  },
   "parserOptions": {
     "sourceType": "module",
     "allowImportExportEverywhere": false,
@@ -38,6 +78,13 @@
   },
   "globals": {
     "Atomics": "readonly",
-    "SharedArrayBuffer": "readonly"
+    "SharedArrayBuffer": "readonly",
+    "window": true,
+    "document": true,
+    "localStorage": true,
+    "FormData": true,
+    "FileReader": true,
+    "Blob": true,
+    "navigator": true
   }
 }

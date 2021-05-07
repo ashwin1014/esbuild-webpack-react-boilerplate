@@ -9,6 +9,25 @@
       {
         "runtime": "automatic"
       }
+    ],
+    [
+      "module-resolver",
+      {
+        "root": ["./src"],
+        "extensions": [".tsx", ".jsx", ".js", ".json"],
+        "alias": {
+          "@icons": "./src/assets/icons",
+          "@images": "./src/assets/images",
+          "@config": "./src/config",
+          "@constants": "./src/constants",
+          "@hooks": "./src/hooks",
+          "@hoc": "./src/hoc",
+          "@localization": "./src/localization",
+          "@sharedComponents": "./src/sharedComponents",
+          "@utils": "./src/utils",
+          "@pages": "./src/app/pages"
+        }
+      }
     ]
   ],
   "env": {

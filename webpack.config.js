@@ -1,7 +1,7 @@
 /* eslint-disable global-require */
 // const webpack = require("webpack");
 // const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
-const path = require('path');
+const paths = require('./paths');
 const chalk = require('chalk');
 const Dotenv = require('dotenv-webpack');
 const SriPlugin = require('webpack-subresource-integrity');
@@ -16,8 +16,7 @@ const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin'
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const { ESBuildMinifyPlugin } = require('esbuild-loader');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
-
-const paths = require('./paths');
+const path = require('path');
 
 module.exports = (_, args) => {
   const { mode } = args;
@@ -34,6 +33,7 @@ module.exports = (_, args) => {
       publicPath: paths.publicPath,
       crossOriginLoading: 'anonymous',
       filename: 'static/js/[name].[contenthash:8].js'
+      // assetModuleFilename: 'static/media/[name].[hash:8].[ext]'
     },
     devServer: {
       port: 3000,
@@ -45,7 +45,19 @@ module.exports = (_, args) => {
       open: true
     },
     resolve: {
-      extensions: ['*', '.js', '.jsx']
+      extensions: ['*', '.js', '.jsx'],
+      alias: {
+        '@icons': path.resolve(__dirname, './src/assets/icons'),
+        '@images': path.resolve(__dirname, './src/assets/images'),
+        '@config': path.resolve(__dirname, './src/config'),
+        '@constants': path.resolve(__dirname, './src/constants'),
+        '@hooks': path.resolve(__dirname, './src/hooks'),
+        '@hoc': path.resolve(__dirname, './src/hoc'),
+        '@localization': path.resolve(__dirname, './src/localization'),
+        '@sharedComponents': path.resolve(__dirname, './src/sharedComponents'),
+        '@utils': path.resolve(__dirname, './src/utils'),
+        '@pages': path.resolve(__dirname, './src/app/pages')
+      }
     },
     module: {
       rules: [
@@ -127,15 +139,11 @@ module.exports = (_, args) => {
           use: [isEnvProduction && MiniCssExtractPlugin.loader, 'css-loader', 'less-loader'].filter(Boolean)
         },
         {
-          test: /\.png$/,
-          use: [
-            {
-              loader: 'url-loader',
-              options: {
-                mimetype: 'image/png'
-              }
-            }
-          ]
+          test: /\.(jpe?g|png|gif|svg)$/i,
+          type: 'asset/resource',
+          generator: {
+            filename: 'static/media/[hash][ext][query]'
+          }
         },
         {
           test: /\.svg$/,
@@ -159,18 +167,18 @@ module.exports = (_, args) => {
               }
             }
           ]
-        },
-        {
-          test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/, /\.svg$/],
-          use: [
-            {
-              loader: 'url-loader',
-              options: {
-                name: 'static/media/[name].[hash:8].[ext]'
-              }
-            }
-          ]
         }
+        // {
+        //   test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/, /\.svg$/],
+        //   use: [
+        //     {
+        //       loader: 'url-loader',
+        //       options: {
+        //         name: 'static/media/[name].[hash:8].[ext]'
+        //       }
+        //     }
+        //   ]
+        // }
         // {
         //   oneOf: [
         //     {
@@ -232,7 +240,7 @@ module.exports = (_, args) => {
           plugins: [
             ['gifsicle', { interlaced: true }],
             ['jpegtran', { progressive: true }],
-            ['optipng', { optimizationLevel: 5, interlaced: null }],
+            ['optipng', { optimizationLevel: 5 }],
             ['mozjpeg', { quality: 80 }],
             [
               'svgo',

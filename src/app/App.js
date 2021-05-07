@@ -2,9 +2,9 @@ import React from 'react';
 
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 
+import { ErrorBoundary } from '@hoc';
 import Layout from '../layout/Layout';
-import AppRoutes from './Routes';
-import { ErrorBoundary } from '../hoc';
+import AppRoutes from '../base/Routes';
 
 const App = () => {
   return (

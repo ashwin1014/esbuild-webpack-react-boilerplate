@@ -1,4 +1,5 @@
-import { Home } from '../pages';
+// import { lazy } from 'react';
+import { Home } from '@pages';
 
 export const ROUTES = [
   {
