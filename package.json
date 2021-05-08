@@ -5,6 +5,16 @@
   "license": "MIT",
   "author": "Ashwin Bordoloi",
   "homepage": "https://github.com/ashwin1014/esbuild-webpack-react-boilerplate",
+  "keywords": [
+    "webpack",
+    "boilerplate",
+    "template",
+    "esbuild-loader",
+    "dart-sass",
+    "styled-components",
+    "react-webpack5-esbuild"
+  ],
+  "target": "web",
   "scripts": {
     "start": "webpack serve --hot --mode development",
     "build": "cross-env NODE_ENV=production && webpack --mode production",
@@ -13,6 +23,7 @@
     "clean-install-start": "yarn clean-install && yarn start",
     "clean-install-build": "yarn clean-install && yarn build",
     "prepare": "husky install",
+    "svgr": "svgr -d src/assets/icons src/assets/icons/svgs --template src/assets/icons/template.js --memo --ignore-existing",
     "eslint-check": "eslint --print-config src/index.js | eslint-config-prettier-check",
     "format": "prettier --write \"**/*.+(js|jsx|json|yml|yaml|css|md|vue)\"",
     "lint:scss": "stylelint **/*.scss",
@@ -27,8 +38,7 @@
   },
   "lint-staged": {
     "src/**/*.{js,jsx}": [
-      "eslint",
-      "pretty-quick --staged"
+      "eslint --fix"
     ],
     "src/**/*.scss": [
       "stylelint **/*.scss --fix"
@@ -45,7 +55,7 @@
     "@babel/preset-env": "^7.14.1",
     "@babel/preset-react": "^7.13.13",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.4.3",
-    "@svgr/webpack": "^5.5.0",
+    "@svgr/cli": "^5.5.0",
     "autoprefixer": "^10.2.5",
     "babel-loader": "^8.2.2",
     "babel-plugin-import": "^1.13.3",
@@ -62,11 +72,10 @@
     "css-loader": "^5.2.4",
     "css-minimizer-webpack-plugin": "^2.0.0",
     "dotenv-webpack": "^7.0.2",
-    "esbuild-loader": "^2.12.0",
+    "esbuild-loader": "^2.13.0",
     "eslint": "7.2.0",
     "eslint-config-airbnb": "18.2.1",
     "eslint-config-prettier": "^8.3.0",
-    "eslint-import-resolver-webpack": "^0.13.0",
     "eslint-plugin-import": "2.22.1",
     "eslint-plugin-jsx-a11y": "6.4.1",
     "eslint-plugin-module-resolver": "^1.2.0",
@@ -86,7 +95,7 @@
     "imagemin-optipng": "^8.0.0",
     "imagemin-svgo": "^9.0.0",
     "less-loader": "^8.1.1",
-    "lint-staged": "^10.5.4",
+    "lint-staged": "^11.0.0",
     "mini-css-extract-plugin": "^1.6.0",
     "plop": "^2.7.4",
     "postcss": "^8.2.14",
@@ -114,11 +123,12 @@
     "stylelint-scss": "^3.19.0",
     "url-loader": "^4.1.1",
     "webpack": "^5.36.2",
+    "webpack-assets-manifest": "^5.0.6",
     "webpack-bundle-analyzer": "^4.4.1",
-    "webpack-cli": "^4.6.0",
+    "webpack-cli": "^4.7.0",
     "webpack-dev-server": "^3.11.2",
     "webpack-prettier-plugin": "^1.0.3",
-    "webpack-subresource-integrity": "^1.5.2"
+    "webpack-subresource-integrity": "^5.0.0-alpha.5"
   },
   "dependencies": {
     "axios": "^0.21.1",

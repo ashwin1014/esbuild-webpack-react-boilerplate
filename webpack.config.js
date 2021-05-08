@@ -1,10 +1,9 @@
 /* eslint-disable global-require */
 // const webpack = require("webpack");
 // const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
-const paths = require('./paths');
 const chalk = require('chalk');
 const Dotenv = require('dotenv-webpack');
-const SriPlugin = require('webpack-subresource-integrity');
+const { SubresourceIntegrityPlugin } = require('webpack-subresource-integrity');
 const ESLintPlugin = require('eslint-webpack-plugin');
 const ImageMinimizerPlugin = require('image-minimizer-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
@@ -13,10 +12,12 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const WebpackPrettierPlugin = require('webpack-prettier-plugin');
 const ResourceHintWebpackPlugin = require('resource-hints-webpack-plugin');
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
+const WebpackAssetsManifest = require('webpack-assets-manifest');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const { ESBuildMinifyPlugin } = require('esbuild-loader');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const path = require('path');
+const appPaths = require('./paths');
 
 module.exports = (_, args) => {
   const { mode } = args;
@@ -27,10 +28,10 @@ module.exports = (_, args) => {
 
   return {
     mode,
-    entry: paths.appIndexJs,
+    entry: appPaths.appIndexJs,
     output: {
-      path: paths.buildPath,
-      publicPath: paths.publicPath,
+      path: appPaths.buildPath,
+      publicPath: appPaths.publicPath,
       crossOriginLoading: 'anonymous',
       filename: 'static/js/[name].[contenthash:8].js'
       // assetModuleFilename: 'static/media/[name].[hash:8].[ext]'
@@ -41,7 +42,7 @@ module.exports = (_, args) => {
       hot: true,
       historyApiFallback: true,
       compress: true,
-      contentBase: paths.buildPath,
+      contentBase: appPaths.buildPath,
       open: true
     },
     resolve: {
@@ -146,9 +147,13 @@ module.exports = (_, args) => {
           }
         },
         {
-          test: /\.svg$/,
-          use: ['@svgr/webpack']
+          test: /\.svg/,
+          type: 'asset/inline'
         },
+        // {
+        //   test: /\.svg$/,
+        //   use: ['@svgr/webpack']
+        // },
         {
           test: /\.(ogg|mp3|wav|mpe?g)$/i,
           use: 'file-loader'
@@ -158,58 +163,22 @@ module.exports = (_, args) => {
           use: 'file-loader?name=[name].[ext]'
         },
         {
-          test: /\.(woff|ttf|otf|eot|woff2|svg)$/i,
-          use: [
-            {
-              loader: 'file-loader',
-              options: {
-                name: 'static/media/[name].[hash:8].[ext]'
-              }
-            }
-          ]
+          test: /\.(woff|woff2|eot|ttf|otf)$/i,
+          type: 'asset/resource',
+          generator: {
+            filename: 'static/media/fonts/[hash][ext][query]'
+          }
         }
-        // {
-        //   test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/, /\.svg$/],
-        //   use: [
-        //     {
-        //       loader: 'url-loader',
-        //       options: {
-        //         name: 'static/media/[name].[hash:8].[ext]'
-        //       }
-        //     }
-        //   ]
-        // }
-        // {
-        //   oneOf: [
-        //     {
-        //       test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/, /\.svg$/],
-        //       use: {
-        //         loader: 'url-loader'
-        //       },
-        //       // options: {
-        //       //   name: 'static/media/[name].[hash:8].[ext]'
-        //       // }
-        //       type: 'asset/resource'
-        //     }
-        //     // {
-        //     //   test: [/\.(woff|woff2|eot|ttf)$/],
-        //     //   use: {
-        //     //     loader: 'url-loader'
-        //     //   },
-        //     //   // options: {
-        //     //   //   name: 'static/media/[name].[hash:8].[ext]'
-        //     //   // }
-        //     //   type: 'asset/resource'
-        //     // }
-        //   ].filter(Boolean)
-        // }
       ]
     },
     plugins: [
-      new CleanWebpackPlugin(),
+      new CleanWebpackPlugin({
+        verbose: true,
+        cleanOnceBeforeBuildPatterns: ['**/*', '!stats.json']
+      }),
       new HtmlWebpackPlugin({
         inject: true,
-        template: paths.appHtml,
+        template: appPaths.appHtml,
         title: 'Welcome',
         ...(isEnvProduction
           ? {
@@ -225,17 +194,20 @@ module.exports = (_, args) => {
                 minifyCSS: true,
                 minifyURLs: true
               }
+              // meta: {
+              //   'Content-Security-Policy': { 'http-equiv': 'Content-Security-Policy', content: 'default-src https:' }
+              // }
             }
           : undefined)
       }),
+      new WebpackAssetsManifest({ integrity: true }),
       new ResourceHintWebpackPlugin(),
-      new SriPlugin({
-        hashFuncNames: ['sha256', 'sha384'],
-        enabled: isEnvProduction
+      new SubresourceIntegrityPlugin({
+        enabled: false
       }),
       new Dotenv(),
-
       new ImageMinimizerPlugin({
+        test: /\.(jpe?g|png|gif|svg)$/i,
         minimizerOptions: {
           plugins: [
             ['gifsicle', { interlaced: true }],
@@ -258,6 +230,7 @@ module.exports = (_, args) => {
 
       new ESLintPlugin({
         extensions: 'js',
+        exclude: 'node_modules',
         cache: true,
         eslintPath: require.resolve('eslint'),
         context: '.',
@@ -267,7 +240,8 @@ module.exports = (_, args) => {
         useEslintrc: true,
         emitWarning: true,
         quiet: true,
-        fix: true
+        fix: true,
+        failOnError: false
       }),
       new WebpackPrettierPlugin(),
       new CompressionPlugin({

@@ -1,3 +1,1 @@
-import { ReactComponent as SadIcon } from './sadIcon.svg';
-
-export { SadIcon };
+export { default as SadIcon } from './SadIcon';
