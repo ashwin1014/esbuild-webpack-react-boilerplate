@@ -30,7 +30,8 @@
     "lint:scss:fix": "sass-lint-auto-fix --config-sass-lint .sass-lint.yml",
     "lint:js": "eslint . --ext .js,.jsx",
     "lint:js:fix": "npm run lint:js -- --fix",
-    "pre-commit": "lint-staged"
+    "pre-commit": "lint-staged",
+    "generate": "plop"
   },
   "repository": {
     "type": "git",
@@ -38,7 +39,8 @@
   },
   "lint-staged": {
     "src/**/*.{js,jsx}": [
-      "eslint --fix"
+      "eslint --fix",
+      "pretty-quick --staged"
     ],
     "src/**/*.scss": [
       "stylelint **/*.scss --fix"
@@ -97,6 +99,7 @@
     "less-loader": "^8.1.1",
     "lint-staged": "^11.0.0",
     "mini-css-extract-plugin": "^1.6.0",
+    "node-sass": "^5.0.0",
     "plop": "^2.7.4",
     "postcss": "^8.2.14",
     "postcss-clamp": "^2.0.0",
@@ -106,6 +109,7 @@
     "postcss-preset-env": "^6.7.0",
     "postcss-scss": "^3.0.5",
     "prettier": "^2.2.1",
+    "pretty-quick": "^3.1.0",
     "react-hot-loader": "^4.13.0",
     "react-refresh": "^0.10.0",
     "resource-hints-webpack-plugin": "^0.0.2",
@@ -136,7 +140,9 @@
     "prop-types": "^15.7.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-favicon": "^0.0.22",
     "react-helmet-async": "^1.0.9",
+    "react-icons": "^4.2.0",
     "react-localization": "^1.0.17",
     "react-router-dom": "^5.2.0",
     "styled-components": "^5.3.0"

@@ -129,7 +129,8 @@ module.exports = (_, args) => {
                 implementation: require('sass'),
                 sassOptions: {
                   fiber: require('fibers')
-                }
+                },
+                additionalData: `@use 'src/styles/styleUtils/variables' as *;`
               }
             },
             'postcss-loader'
@@ -156,7 +157,11 @@ module.exports = (_, args) => {
         // },
         {
           test: /\.(ogg|mp3|wav|mpe?g)$/i,
-          use: 'file-loader'
+          // use: 'file-loader'
+          type: 'asset/resource',
+          generator: {
+            filename: 'static/media/[hash][ext][query]'
+          }
         },
         {
           test: /favicon\.png$/,

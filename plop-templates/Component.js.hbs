@@ -1,0 +1,22 @@
+import React, { memo } from 'react';
+
+// eslint-disable-next-line import/no-extraneous-dependencies
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
+import cx from 'classNames';
+
+const Container = styled.div`
+  display: flex;
+   font-size: ${(props) => props.theme.fontLg2};
+`;
+
+
+const {{pascalCase name}} = ({ className = '' }) => {
+  return <Container className={cx({ [`${className}`]: className })}>{{pascalCase name}}</Container>;
+};
+
+{{pascalCase name}}.propTypes = {
+  className: PropTypes.string
+};
+
+export default memo({{pascalCase name}});

@@ -1,13 +1,13 @@
-@import './styleUtils/mixins';
-@import './styleUtils/variables';
-@import './styleUtils/breakpoints';
-@import './styleUtils/helperClasses';
+@use './styleUtils/mixins' as m;
+// @use './styleUtils/variables';
+@use './styleUtils/breakpoints' as *;
+@use './styleUtils/helperClasses';
 
-@include font-face(GilroyRegular, './fonts/Gilroy-Regular', 400, normal, ttf woff2 woff);
-@include font-face(GilroyMedium, './fonts/Gilroy-Medium', 500, normal, ttf woff2 woff);
-@include font-face(GilroySemiBold, './fonts/Gilroy-Semibold', 600, normal, ttf woff2 woff);
-@include font-face(GilroyBold, './fonts/Gilroy-Bold', 700, normal, ttf woff2 woff);
-@include font-face(GilroyExtraBold, './fonts/Gilroy-Extrabold', 700, normal, ttf woff2 woff);
+@include m.font-face(GilroyRegular, './fonts/Gilroy-Regular', 400, normal, ttf woff2 woff);
+@include m.font-face(GilroyMedium, './fonts/Gilroy-Medium', 500, normal, ttf woff2 woff);
+@include m.font-face(GilroySemiBold, './fonts/Gilroy-Semibold', 600, normal, ttf woff2 woff);
+@include m.font-face(GilroyBold, './fonts/Gilroy-Bold', 700, normal, ttf woff2 woff);
+@include m.font-face(GilroyExtraBold, './fonts/Gilroy-Extrabold', 700, normal, ttf woff2 woff);
 
 html,
 body {

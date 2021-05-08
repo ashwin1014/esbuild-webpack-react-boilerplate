@@ -1,5 +1,5 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
-import React from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 
@@ -24,4 +24,4 @@ Loader.propTypes = {
   white: PropTypes.bool
 };
 
-export default Loader;
+export default memo(Loader);
