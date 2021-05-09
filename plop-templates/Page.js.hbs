@@ -1,14 +1,20 @@
 import React from 'react';
 
+import { Head } from '@sharedComponents';
 import strings from '@localization/home.locale';
-import './{{pascalCase name}}.style.scss';
 
+import './{{pascalCase name}}.style.scss';
 
 const {{pascalCase name}} = () => {
   return (
-    <div className='{{camelCase name}}'>
-      <h1>{strings.Title}</h1>
-    </div>
+    <>
+      <Head>
+        <title>{strings.Title}</title>
+      </Head>
+      <div className='profile'>
+        <h1>{strings.Title}</h1>
+      </div>
+    </>
   );
 };
 

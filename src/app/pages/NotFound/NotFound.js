@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { Helmet } from 'react-helmet-async';
 import styled from 'styled-components';
 
+import { Head } from '@sharedComponents';
 import { SadIcon } from '@icons';
 
 const Icon = styled(SadIcon)`
@@ -21,9 +21,9 @@ const Wrapper = styled.div`
 const NotFound = () => {
   return (
     <>
-      <Helmet>
+      <Head>
         <title>404! Page not found :(</title>
-      </Helmet>
+      </Head>
       <Wrapper>
         <Icon />
         <p>Sorry, the page you are looking for does not exist</p>

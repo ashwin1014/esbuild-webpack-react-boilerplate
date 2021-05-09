@@ -26,15 +26,126 @@ You can view the development server at `localhost:3000`.
 npm run build or yarn build
 ```
 
-## Features
+## Project Features
 
-- [webpack](https://webpack.js.org/)
-- [esbuild-loader](https://github.com/privatenumber/esbuild-loader)
-- [Babel](https://babeljs.io/)
-- [Sass](https://sass-lang.com/)
-- [Styled Components](https://styled-components.com/)
-- [PostCSS](https://postcss.org/)
-- [React Helmet Async](https://www.npmjs.com/package/react-helmet-async)
+### 1) **Component Scaffolding:** [Plop](https://plopjs.com/) - Easily create pages/components with consistency using the below command. Automatically creates Js, Scss and localization files at required directories. Templates can be modified by editing 'plopfile.js' file and 'plop-templates' directory.
+
+```bash
+npm generate or yarn generate
+```
+
+### 2) **Module Aliases:** Below are the list of aliases. These can be configured in webpack.config.js file
+
+```
+    "paths": {
+      "@icons/*": ["src/assets/icons/*"],
+      "@images/*": ["src/assets/images/*"],
+      "@config/*": ["src/config/*"],
+      "@constants/*": ["src/constants/*"],
+      "@hooks/*": ["src/hooks/*"],
+      "@hoc/*": ["src/hoc/*"],
+      "@localization/*": ["src/localization/*"],
+      "@sharedComponents/*": ["src/sharedComponents/*"],
+      "@pages/*": ["src/app/pages/*"],
+      "@utils/*": ["src/utils/*"],
+      "@/*": ["src*"]
+    };
+```
+
+```
+  /*Usage*/
+  import { Space } from '@sharedComponents';
+  import { FaBeer } from '@icons';
+  .
+  .
+  .
+  <Space><p>Hello</p><p>World</p><Space>
+  <FaBeer />
+
+```
+
+### 3) **Variable sharing between scss and styled-components:** All scss/css variables declared in "\_variables.scss" file in styles directory can be reused with styled-components.
+
+```javascript
+import styled from 'styled-components';
+
+const Container = styled.div`
+  display: flex;
+  font-size: ${(props) => props.theme.fontLg2};
+`;
+```
+
+### 4) **Pre-configured route based splitting with React.lazy**; Import and add your routes to Routes.config.js in base directory.
+
+```javascript
+ const About = React.lazy(() => import('@pages/About'));
+ export const ROUTES = [
+   .
+   .
+   .
+   .
+  {
+    path: '/about',
+    key: 'About',
+    exact: true,
+    component: About
+  }
+];
+```
+
+### 5) **Optimization**:
+
+- [`ImageMinimizerWebpackPlugin`](https://webpack.js.org/plugins/image-minimizer-webpack-plugin/) - Lossless compression of images using imagemin plugin
+- [`compression-webpack-plugin`](https://www.npmjs.com/package/compression-webpack-plugin) - Pre-configured "brotli" compress to prepare compressed versions of assets to serve them with Content-Encoding.
+
+### 6) **SVG as React Components**: [@svgr/cli](https://react-svgr.com/docs/cli/)
+
+```
+/* 1) Place your svgs in assets/icons/svg folder*/
+/* 2) run below command from cli */
+```
+
+```bash
+yarn svgr or npm svgr
+```
+
+The above command will automatically create the React component in assets/icons folder;
+
+usage:
+
+```javascript
+import { SadIcon } from '@icons';
+
+<SadIcon />;
+```
+
+### 6) **Safe Commits**:
+
+- [`lint-staged`](https://www.npmjs.com/package/lint-staged) - Run linters against staged git files and don't let 💩 slip into your code base!
+- [`Husky`](https://typicode.github.io/husky/#/) - configured git hooks that runs "lint-staged" on committing your code and before push to repo.
+
+### 7) **Secure Locale Storage**:
+
+- [`secure-ls`](https://www.npmjs.com/package/secure-ls) - Secure localStorage data with high level of encryption and data compression.
+
+usage:
+
+```javascript
+import { setLocalStorage, getLocalStorageKey } from '@utils/secureLocalStorage';
+
+setLocalStorage('token', resp.accessToken);
+const token = getLocalStorageKey('token');
+```
+
+## React based dependencies
+
+- [`react-helmet-async`](https://www.npmjs.com/package/react-helmet-async) - A fork of "React Helmet" that manages all of your changes to the document head
+- [`react-localization`](https://www.npmjs.com/package/react-localization) - Simple module to localize the React interface using the same syntax used in the ReactNativeLocalization module.
+- [`styled-components`](https://github.com/styled-components/styled-components) - A CSS in JS solution which utilizes tagged template literals (a recent addition to JavaScript) and the power of CSS, to write actual CSS code to style your components.
+- [`classnames`](https://www.npmjs.com/package/classnames) - A simple JavaScript utility for conditionally joining classNames together.
+- [`axios`](https://www.npmjs.com/package/axios) - Promise based HTTP client for the browser and node.js
+- [`secure-ls`](https://www.npmjs.com/package/secure-ls) - Secure localStorage data with high level of encryption and data compression.
+- [`react-icons`](https://react-icons.github.io/react-icons) - Include popular icons in your React projects easily with react-icons, which utilizes ES6 imports that allows you to include only the icons that your project is using.
 
 ## Development Dependencies
 
@@ -53,8 +164,6 @@ npm run build or yarn build
 - [`mini-css-extract-plugin`](https://github.com/webpack-contrib/mini-css-extract-plugin) - Extract CSS into separate files
 - [`compression-webpack-plugin`](https://www.npmjs.com/package/compression-webpack-plugin) - Prepare compressed versions of assets to serve them with Content-Encoding.
 - [`image-minimizer-webpack-plugin`](https://www.npmjs.com/package/image-minimizer-webpack-plugin) - Plugin and Loader for webpack to optimize (compress) all images using imagemin.
-- [`@svgr/webpack`](https://www.npmjs.com/package/@svgr/webpack) - Webpack loader for SVGR. (Transform SVGs into React components.
-  )
 
 ### Babel
 
@@ -94,14 +203,8 @@ npm run build or yarn build
 ### Other Tools
 
 - [`pmmmwh/react-refresh-webpack-plugin`](https://github.com/pmmmwh/react-refresh-webpack-plugin) - An EXPERIMENTAL Webpack plugin to enable "Fast Refresh" (also previously known as Hot Reloading) for React components.
-
-## React based dependencies
-
-- [`react-helmet-async`](https://www.npmjs.com/package/react-helmet-async) - A fork of "React Helmet" that manages all of your changes to the document head
-- [`react-localization`](https://www.npmjs.com/package/react-localization) - Simple module to localize the React interface using the same syntax used in the ReactNativeLocalization module.
-- [`styled-components`](https://github.com/styled-components/styled-components) - A CSS in JS solution which utilizes tagged template literals (a recent addition to JavaScript) and the power of CSS, to write actual CSS code to style your components.
-- [`classnames`](https://www.npmjs.com/package/classnames) - A simple JavaScript utility for conditionally joining classNames together.
-- [`axios`](https://www.npmjs.com/package/axios) - Promise based HTTP client for the browser and node.js
+- [`plop`](https://plopjs.com/) - Plop is a little tool that saves you time and helps your team build new files with consistency.
+- [`@svgr/cli`](https://react-svgr.com/docs/cli/) - A SVG to React transformer
 
 ## Author
 
