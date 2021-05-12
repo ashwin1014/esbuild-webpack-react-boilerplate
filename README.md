@@ -52,7 +52,7 @@ npm generate or yarn generate
     };
 ```
 
-```
+```javascript
   /*Usage*/
   import { Space } from '@sharedComponents';
   import { FaBeer } from '@icons';
@@ -64,7 +64,7 @@ npm generate or yarn generate
 
 ```
 
-### 3) **Variable sharing between scss and styled-components:** All scss/css variables declared in "\_variables.scss" file in styles directory can be reused with styled-components.
+### 3) **Styles**: Both sass and styled components have been added along with global variables.
 
 ```javascript
 import styled from 'styled-components';
@@ -75,10 +75,12 @@ const Container = styled.div`
 `;
 ```
 
-### 4) **Pre-configured route based splitting with React.lazy**; Import and add your routes to Routes.config.js in base directory.
+### 4) **Pre-configured route based splitting [Loadable Components](https://loadable-components.com/docs/getting-started)**; Import and add your routes to Routes.config.js in base directory.
 
 ```javascript
- const About = React.lazy(() => import('@pages/About'));
+ import { lazy } from '@loadable/component';
+
+ const About = lazy(() => import('@pages/About'));
  export const ROUTES = [
    .
    .

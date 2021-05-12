@@ -1,7 +1,8 @@
 @use './styleUtils/mixins' as m;
-// @use './styleUtils/variables';
+// @use './styleUtils/variables' as *;
 @use './styleUtils/breakpoints' as *;
 @use './styleUtils/helperClasses';
+@use './styleUtils/reset';
 
 @include m.font-face(GilroyRegular, './fonts/Gilroy-Regular', 400, normal, ttf woff2 woff);
 @include m.font-face(GilroyMedium, './fonts/Gilroy-Medium', 500, normal, ttf woff2 woff);
@@ -32,4 +33,5 @@ html {
 .app-layout {
   overflow-x: hidden;
   position: relative;
+  height: calc(100vh);
 }

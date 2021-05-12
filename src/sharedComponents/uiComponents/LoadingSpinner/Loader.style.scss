@@ -1,5 +1,3 @@
-@import '../../../styles/styleUtils/variables';
-
 @keyframes bouncing-loader {
   to {
     opacity: 0.1;
@@ -35,7 +33,8 @@
     }
 
     &_message {
-      font-size: clamp($font-sm1, 2.5vw, $font-sm3);
+      // font-size: clamp($font-sm1, 2.5vw, $font-sm3);
+      font-size: clamp(#{$font-sm1}, 2.5vw, #{$font-sm3});
     }
   }
 

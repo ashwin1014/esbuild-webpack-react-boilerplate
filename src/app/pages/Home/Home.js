@@ -11,7 +11,7 @@ import './Home.style.scss';
 const Home = () => (
   <>
     <Head>
-      <title>React Home</title>
+      <title>Welcome to React App</title>
     </Head>
     <div className='home'>
       <>

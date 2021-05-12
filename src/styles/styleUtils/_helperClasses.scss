@@ -1,3 +1,15 @@
+.d-block {
+  display: block;
+}
+
+.d-inline {
+  display: inline;
+}
+
+.d-ib {
+  display: inline-block;
+}
+
 .d-flex {
   display: flex;
 }
@@ -34,6 +46,10 @@
   align-items: flex-start;
   display: flex;
   flex-wrap: wrap;
+}
+
+.flex-grow {
+  flex-grow: 1;
 }
 
 .justify-flex-end {
@@ -88,6 +104,82 @@
   margin: 0 auto;
 }
 
+.no-margin {
+  margin: 0;
+}
+
+.no-padding {
+  padding: 0;
+}
+
+.pad-right-0 {
+  padding-right: 0;
+}
+
+.pad-left-0 {
+  padding-left: 0;
+}
+
+.pad-top-0 {
+  padding-top: 0;
+}
+
+.pad-bottom-0 {
+  padding-bottom: 0;
+}
+
 .text-center {
   text-align: center;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.text-justify {
+  text-align: justify;
+}
+
+.text-lower {
+  text-transform: lowercase;
+}
+
+.text-upper {
+  text-transform: uppercase;
+}
+
+.text-capitalize {
+  text-transform: capitalize;
+}
+
+.text-underline {
+  text-decoration: underline;
+}
+
+.text-strike {
+  text-decoration: line-through;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.half-width {
+  width: 50%;
+}
+
+.relative {
+  position: relative;
+}
+
+.absolute {
+  position: absolute;
+}
+
+.fixed {
+  position: fixed;
 }

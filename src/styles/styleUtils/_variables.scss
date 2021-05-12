@@ -14,13 +14,35 @@ $font-xl2: 2.813rem !default; // 45px
 
 /* Font-Families */
 
-$font-regular: GilroyRegular, sans-serif;
-$font-medium: GilroyMedium, sans-serif;
-$font-semibold: GilroySemiBold, sans-serif;
-$font-bold: GilroyBold, sans-serif;
-$font-extrabold: GilroyExtraBold, sans-serif;
+$font-regular: GilroyRegular, sans-serif !default;
+$font-medium: GilroyMedium, sans-serif !default;
+$font-semibold: GilroySemiBold, sans-serif !default;
+$font-bold: GilroyBold, sans-serif !default;
+$font-extrabold: GilroyExtraBold, sans-serif !default;
 
 /* Colors */
 
 $white: #fff !default;
 $blue: #3d84b8 !default;
+
+// :export {
+//   fontLg1: $font-lg1;
+//   fontLg2: $font-lg2;
+//   fontLg3: $font-lg3;
+//   fontMd1: $font-md1;
+//   fontMd2: $font-md2;
+//   fontMd3: $font-md3;
+//   fontMd4: $font-md4;
+//   fontSm1: $font-sm1;
+//   fontSm2: $font-sm2;
+//   fontSm3: $font-sm4;
+//   fontXl1: $font-xl1;
+//   fontXl2: $font-xl2;
+//   fontMedium: $font-medium;
+//   fontRegular: $font-regular;
+//   fontSemibold: $font-semibold;
+//   fontBold: $font-bold;
+//   fontExtrabold: $font-extrabold;
+//   white: $white;
+//   blue: $blue;
+// }

@@ -6,10 +6,14 @@ import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { ThemeProvider } from 'styled-components';
 
 import { ErrorBoundary } from '@hoc';
+import theme from '../styles/styleUtils/styledVariables';
 import Layout from '../layout/Layout';
 import AppRoutes from '../base/Routes';
 
-const theme = require('sass-extract-loader?{"plugins": ["sass-extract-js"]}!../styles/styleUtils/_variables.scss');
+// TODO: use sass variables with styled
+// const theme = require('sass-extract-loader?{"plugins": ["sass-extract-js"]}!../styles/styleUtils/_variables.scss');
+
+// console.log(theme);
 
 const App = () => {
   return (

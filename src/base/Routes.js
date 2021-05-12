@@ -1,5 +1,6 @@
-import React, { Suspense, lazy } from 'react';
+import React, { Suspense } from 'react';
 
+import { lazy } from '@loadable/component';
 import { Switch, Route } from 'react-router-dom';
 
 import { Loader } from '@sharedComponents';
@@ -12,13 +13,9 @@ const AppRoutes = () => {
     <Suspense fallback={Loader}>
       <Switch>
         {(ROUTES || []).map((route) => (
-          <Route key={route.key} path={route.path} exact={route.exact}>
-            <route.component />
-          </Route>
+          <Route key={route.key} path={route.path} exact={route.exact} component={route.component} />
         ))}
-        <Route>
-          <PageNoteFound />
-        </Route>
+        <Route component={PageNoteFound} />
       </Switch>
     </Suspense>
   );

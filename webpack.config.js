@@ -127,6 +127,7 @@ module.exports = (_, args) => {
               loader: 'sass-loader',
               options: {
                 implementation: require('sass'),
+                webpackImporter: false,
                 sassOptions: {
                   fiber: require('fibers')
                 },
@@ -235,7 +236,7 @@ module.exports = (_, args) => {
 
       new ESLintPlugin({
         extensions: 'js',
-        exclude: 'node_modules',
+        exclude: ['node_modules', 'plop-templates'],
         cache: true,
         eslintPath: require.resolve('eslint'),
         context: '.',

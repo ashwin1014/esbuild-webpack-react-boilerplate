@@ -4,7 +4,6 @@
 import React, { PureComponent } from 'react';
 
 import PropTypes from 'prop-types';
-import { withRouter } from 'react-router-dom';
 
 import { Space } from '@sharedComponents';
 
@@ -48,4 +47,4 @@ MyErrorBoundary.propTypes = {
   children: PropTypes.oneOfType([PropTypes.object, PropTypes.array]).isRequired
 };
 
-export default withRouter(MyErrorBoundary);
+export default MyErrorBoundary;

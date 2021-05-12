@@ -1,4 +1,5 @@
-// import { lazy } from 'react';
+// import { lazy } from '@loadable/component';
+
 import { Home } from '@pages';
 
 export const ROUTES = [
