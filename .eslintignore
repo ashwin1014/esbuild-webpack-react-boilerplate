@@ -1,4 +1,5 @@
 dist/
+plop-templates/
 build/
 *.d.ts
 node_modules/
