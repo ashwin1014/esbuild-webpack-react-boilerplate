@@ -35,7 +35,7 @@
     "eslint-check": "eslint --print-config src/index.js | eslint-config-prettier-check",
     "format": "prettier --write \"**/*.+(js|jsx|json|yml|yaml|css|md|vue)\"",
     "lint:scss": "stylelint **/*.scss",
-    "lint:scss:fix": "sass-lint-auto-fix --config-sass-lint .sasslintrc",
+    "lint:scss:fix": "sass-lint-auto-fix --config-sass-lint .sass-lint.yml",
     "lint:js": "eslint . --ignore-path .gitignore --ext .js,.jsx",
     "lint:js:fix": "npm run lint:js -- --fix",
     "pre-commit": "lint-staged",
@@ -53,6 +53,7 @@
       "pretty-quick --staged"
     ],
     "src/**/*.scss": [
+      "npm run lint:scss:fix",
       "stylelint **/*.scss --fix"
     ]
   },
@@ -94,7 +95,7 @@
     "eslint-plugin-module-resolver": "^1.2.0",
     "eslint-plugin-prettier": "^3.4.0",
     "eslint-plugin-react": "7.21.5",
-    "eslint-plugin-react-hooks": "1.7.0",
+    "eslint-plugin-react-hooks": "^4.2.0",
     "eslint-webpack-plugin": "^2.5.4",
     "fibers": "^5.0.0",
     "file-loader": "^6.2.0",

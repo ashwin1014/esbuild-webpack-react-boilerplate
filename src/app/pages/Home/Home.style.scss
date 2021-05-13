@@ -4,8 +4,8 @@
   gap: 20px;
 
   h1 {
-    font-size: clamp(#{$font-md4}, 2.5vw, #{$font-lg1});
     font-family: $font-semibold;
+    font-size: clamp(#{$font-md4}, 2.5vw, #{$font-lg1});
   }
 
   &__smiley {
