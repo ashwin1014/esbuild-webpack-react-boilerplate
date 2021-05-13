@@ -10,7 +10,7 @@ import theme from '../styles/styleUtils/styledVariables';
 import Layout from '../layout/Layout';
 import AppRoutes from '../base/Routes';
 
-// TODO: use sass variables with styled
+// TODO: use sass variables with styled: below loader causing issue on build
 // const theme = require('sass-extract-loader?{"plugins": ["sass-extract-js"]}!../styles/styleUtils/_variables.scss');
 
 // console.log(theme);

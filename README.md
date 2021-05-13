@@ -142,6 +142,8 @@ const token = getLocalStorageKey('token');
 ## React based dependencies
 
 - [`react-helmet-async`](https://www.npmjs.com/package/react-helmet-async) - A fork of "React Helmet" that manages all of your changes to the document head
+- [`loadable-components`](https://loadable-components.com/) - React code splitting made easy. Recommended by the React Team
+- [`react-router-dom`](https://reactrouter.com/web/guides/quick-start) - A collection of navigational components that compose declaratively with your application
 - [`react-localization`](https://www.npmjs.com/package/react-localization) - Simple module to localize the React interface using the same syntax used in the ReactNativeLocalization module.
 - [`styled-components`](https://github.com/styled-components/styled-components) - A CSS in JS solution which utilizes tagged template literals (a recent addition to JavaScript) and the power of CSS, to write actual CSS code to style your components.
 - [`classnames`](https://www.npmjs.com/package/classnames) - A simple JavaScript utility for conditionally joining classNames together.

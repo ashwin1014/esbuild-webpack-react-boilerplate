@@ -24,7 +24,7 @@
     "Blob": true,
     "navigator": true
   },
-  "plugins": ["@babel", "react", "prettier"],
+  "plugins": ["@babel", "react", "prettier", "react-hooks", "jsx-a11y"],
   "extends": ["airbnb", "airbnb/hooks", "plugin:prettier/recommended", "plugin:react/recommended", "plugin:import/errors", "plugin:import/warnings"],
   "settings": {
     "react": {
@@ -42,6 +42,7 @@
     "import/no-extraneous-dependencies": ["off", { "devDependencies": false }],
     "react/prop-types": [1, { "ignore": ["config"] }],
     "react/require-default-props": [1, { "ignoreFunctionalComponents": true }],
+    "react-hooks/rules-of-hooks": "error",
     "no-nested-ternary": "off",
     "no-param-reassign": ["error", { "props": false }],
     "no-underscore-dangle": ["error", { "allowAfterThis": true }],

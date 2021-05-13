@@ -1,6 +1,5 @@
 /* eslint-disable global-require */
-// const webpack = require("webpack");
-// const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+const webpack = require('webpack');
 const chalk = require('chalk');
 const Dotenv = require('dotenv-webpack');
 const { SubresourceIntegrityPlugin } = require('webpack-subresource-integrity');
@@ -13,6 +12,7 @@ const WebpackPrettierPlugin = require('webpack-prettier-plugin');
 const ResourceHintWebpackPlugin = require('resource-hints-webpack-plugin');
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 const WebpackAssetsManifest = require('webpack-assets-manifest');
+const CircularDependencyPlugin = require('circular-dependency-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const { ESBuildMinifyPlugin } = require('esbuild-loader');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
@@ -29,11 +29,14 @@ module.exports = (_, args) => {
   return {
     mode,
     entry: appPaths.appIndexJs,
+    target: 'web', // Make web variables accessible to webpack, e.g. window
+    devtool: isEnvDevelopment ? 'inline-source-map' : false,
     output: {
       path: appPaths.buildPath,
       publicPath: appPaths.publicPath,
       crossOriginLoading: 'anonymous',
       filename: 'static/js/[name].[contenthash:8].js'
+      // sourceMapFilename: '[name].js.map'
       // assetModuleFilename: 'static/media/[name].[hash:8].[ext]'
     },
     devServer: {
@@ -45,6 +48,11 @@ module.exports = (_, args) => {
       contentBase: appPaths.buildPath,
       open: true
     },
+    // watchOptions: {
+    //   aggregateTimeout: 300,
+    //   poll: 300,
+    //   ignored: /node_modules/
+    // },
     resolve: {
       extensions: ['*', '.js', '.jsx'],
       alias: {
@@ -174,6 +182,13 @@ module.exports = (_, args) => {
           generator: {
             filename: 'static/media/fonts/[hash][ext][query]'
           }
+        },
+        {
+          test: /\.(mp4|webm)$/,
+          type: 'asset/resource',
+          generator: {
+            filename: 'static/media/fonts/[hash][ext][query]'
+          }
         }
       ]
     },
@@ -259,7 +274,15 @@ module.exports = (_, args) => {
         minRatio: 0.8,
         deleteOriginalAssets: false
       }),
+      new CircularDependencyPlugin({
+        exclude: /a\.js|node_modules/, // exclude node_modules
+        failOnError: false // show a warning when there is a circular dependency
+      }),
       // new webpack.HotModuleReplacementPlugin(),
+      isEnvDevelopment &&
+        new webpack.SourceMapDevToolPlugin({
+          filename: '[name].js.map'
+        }),
       isEnvDevelopment && new ReactRefreshWebpackPlugin(),
       isEnvProduction &&
         new MiniCssExtractPlugin({
