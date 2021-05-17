@@ -10,7 +10,7 @@ import { ROUTES } from './Routes.config';
 const PageNotFound = lazy(() => import('@pages/NotFound/NotFound'));
 
 const AppRoutes = () => {
-  const isAuthenticated = true;
+  const isAuthenticated = false;
   return (
     <Suspense fallback={<Loader />}>
       <Switch>
