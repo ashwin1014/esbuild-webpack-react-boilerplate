@@ -72,15 +72,26 @@ module.exports = (_, args) => {
       rules: [
         {
           test: /\.js$/,
-          loader: 'esbuild-loader',
+          // loader: 'esbuild-loader',
           exclude: /nodeModules/,
-          options: {
-            loader: 'jsx',
-            target: 'es2017'
-            // plugins: [
-            //   isEnvDevelopment && require("react-refresh/babel")
-            // ].filter(Boolean)
-          }
+          use: [
+            // {
+            //   loader: require.resolve('babel-loader'),
+            //   options: {
+            //     plugins: [isEnvDevelopment && require.resolve('react-refresh/babel')].filter(Boolean)
+            //   }
+            // },
+            {
+              loader: require.resolve('esbuild-loader'),
+              options: {
+                loader: 'jsx',
+                target: 'es2017',
+                jsxFactory: 'React.createElement',
+                jsxFragment: 'React.Fragment',
+                sourcemap: isEnvDevelopment || false
+              }
+            }
+          ]
         },
         {
           test: /\.css$/,

@@ -25,7 +25,7 @@ module.exports = (plop) => {
       },
       {
         type: 'add',
-        path: 'src/localization/{{pascalCase name}}.locale.js',
+        path: 'src/localization/{{camelCase name}}.locale.js',
         templateFile: 'plop-templates/localize.js.hbs'
       }
     ]
