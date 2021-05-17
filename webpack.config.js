@@ -1,5 +1,5 @@
 /* eslint-disable global-require */
-const webpack = require('webpack');
+// const webpack = require('webpack');
 const chalk = require('chalk');
 const Dotenv = require('dotenv-webpack');
 const { SubresourceIntegrityPlugin } = require('webpack-subresource-integrity');
@@ -45,7 +45,7 @@ module.exports = (_, args) => {
       hot: true,
       historyApiFallback: true,
       compress: true,
-      contentBase: appPaths.buildPath,
+      contentBase: appPaths.dist,
       open: true
     },
     // watchOptions: {
@@ -82,7 +82,7 @@ module.exports = (_, args) => {
             //   }
             // },
             {
-              loader: require.resolve('esbuild-loader'),
+              loader: 'esbuild-loader',
               options: {
                 loader: 'jsx',
                 target: 'es2017',
@@ -208,6 +208,7 @@ module.exports = (_, args) => {
         verbose: true,
         cleanOnceBeforeBuildPatterns: ['**/*', '!stats.json']
       }),
+      // new ESBuildPlugin(),
       new HtmlWebpackPlugin({
         inject: true,
         template: appPaths.appHtml,
@@ -290,10 +291,10 @@ module.exports = (_, args) => {
         failOnError: false // show a warning when there is a circular dependency
       }),
       // new webpack.HotModuleReplacementPlugin(),
-      isEnvDevelopment &&
-        new webpack.SourceMapDevToolPlugin({
-          filename: '[name].js.map'
-        }),
+      // isEnvDevelopment &&
+      //   new webpack.SourceMapDevToolPlugin({
+      //     filename: '[name].js.map'
+      //   }),
       isEnvDevelopment && new ReactRefreshWebpackPlugin(),
       isEnvProduction &&
         new MiniCssExtractPlugin({
@@ -311,7 +312,11 @@ module.exports = (_, args) => {
       minimizer: [
         new ESBuildMinifyPlugin({
           target: 'es2017',
-          css: true
+          css: true,
+          minify: isEnvProduction || false,
+          minifyWhitespace: isEnvProduction || false,
+          minifySyntax: isEnvProduction || false,
+          exclude: 'node_modules'
         })
 
         // new CssMinimizerPlugin(), '...'

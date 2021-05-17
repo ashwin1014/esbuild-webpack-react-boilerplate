@@ -95,12 +95,48 @@ const Container = styled.div`
 ];
 ```
 
-### 5) **Optimization**:
+### 5) **Route Guards**
+
+```javascript
+ import { lazy } from '@loadable/component';
+
+ const Settings = lazy(() => import('@pages/Settings/Settings'));
+ export const ROUTES = [
+   .
+   .
+   .
+   .
+  {
+    path: '/settings',
+    key: 'settings',
+    exact: true,
+    // make isPrivate as true to enable route guard
+    isPrivate: true,
+    component: About
+  }
+];
+```
+
+```javascript
+// pass authenticated as true or false in PrivateRoute
+<Switch>
+  {(ROUTES || []).map((route) =>
+    route.isPrivate ? (
+      <PrivateRoute authenticated={isAuthenticated} redirectPath='/' key={route.key} path={route.path} exact={route.exact} component={route.component} />
+    ) : (
+      <Route key={route.key} path={route.path} exact={route.exact} component={route.component} />
+    )
+  )}
+  <Route component={PageNotFound} />
+</Switch>
+```
+
+### 6) **Optimization**:
 
 - [`ImageMinimizerWebpackPlugin`](https://webpack.js.org/plugins/image-minimizer-webpack-plugin/) - Lossless compression of images using imagemin plugin
 - [`compression-webpack-plugin`](https://www.npmjs.com/package/compression-webpack-plugin) - Pre-configured "brotli" compress to prepare compressed versions of assets to serve them with Content-Encoding.
 
-### 6) **SVG as React Components**: [@svgr/cli](https://react-svgr.com/docs/cli/)
+### 7) **SVG as React Components**: [@svgr/cli](https://react-svgr.com/docs/cli/)
 
 ```
 /* 1) Place your svgs in assets/icons/svg folder*/
@@ -121,12 +157,12 @@ import { SadIcon } from '@icons';
 <SadIcon />;
 ```
 
-### 6) **Safe Commits**:
+### 8) **Safe Commits**:
 
 - [`lint-staged`](https://www.npmjs.com/package/lint-staged) - Run linters against staged git files and don't let 💩 slip into your code base!
 - [`Husky`](https://typicode.github.io/husky/#/) - configured git hooks that runs "lint-staged" on committing your code and before push to repo.
 
-### 7) **Secure Locale Storage**:
+### 9) **Secure Locale Storage**:
 
 - [`secure-ls`](https://www.npmjs.com/package/secure-ls) - Secure localStorage data with high level of encryption and data compression.
 
