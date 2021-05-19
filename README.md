@@ -78,9 +78,10 @@ const Container = styled.div`
 ### 4) **Pre-configured route based splitting [Loadable Components](https://loadable-components.com/docs/getting-started)**; Import and add your routes to Routes.config.js in base directory.
 
 ```javascript
- import { lazy } from '@loadable/component';
+ import prerenderedLoadable from './preRenderedLoadable';
 
- const About = lazy(() => import('@pages/About'));
+ const About = prerenderedLoadable(() => import('@pages/About'));
+
  export const ROUTES = [
    .
    .
@@ -89,6 +90,7 @@ const Container = styled.div`
   {
     path: '/about',
     key: 'About',
+    isPrivate: false,
     exact: true,
     component: About
   }
@@ -98,9 +100,9 @@ const Container = styled.div`
 ### 5) **Route Guards**
 
 ```javascript
- import { lazy } from '@loadable/component';
+ import prerenderedLoadable from './preRenderedLoadable';
 
- const Settings = lazy(() => import('@pages/Settings/Settings'));
+ const Settings = prerenderedLoadable(() => import('@pages/Settings/Settings'));
  export const ROUTES = [
    .
    .
@@ -173,6 +175,23 @@ import { setLocalStorage, getLocalStorageKey } from '@utils/secureLocalStorage';
 
 setLocalStorage('token', resp.accessToken);
 const token = getLocalStorageKey('token');
+```
+
+### 10) **Website pre-rendering to boost SEO**
+
+[react-snap](https://www.npmjs.com/package/react-snap) Pre-renders a web app into static HTML. Uses Headless Chrome to crawl all available links starting from the root.
+
+just add the routes you want to pre-render in package.json
+
+```json
+  "reactSnap": {
+    "include": [
+      "/settings"
+    ],
+    "inlineCss": true,
+    "headless": true
+  },
+
 ```
 
 ## React based dependencies

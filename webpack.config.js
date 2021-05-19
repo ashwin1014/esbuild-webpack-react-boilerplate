@@ -66,6 +66,9 @@ module.exports = (_, args) => {
         '@sharedComponents': path.resolve(__dirname, './src/sharedComponents'),
         '@utils': path.resolve(__dirname, './src/utils'),
         '@pages': path.resolve(__dirname, './src/app/pages')
+      },
+      fallback: {
+        stream: require.resolve('stream-browserify')
       }
     },
     module: {

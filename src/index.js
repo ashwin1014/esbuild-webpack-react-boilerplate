@@ -1,16 +1,23 @@
 import React from 'react';
-import ReactDom from 'react-dom';
+import { hydrate, render } from 'react-dom';
 
 import { BrowserRouter } from 'react-router-dom';
+import reportWebVitals from './reportWebVitals';
 import App from './app/App';
 
 const MOUNT_NODE = document.getElementById('app');
-
-ReactDom.render(
+const APP_BOOTSTRAP = (
   <React.StrictMode>
     <BrowserRouter>
       <App />
     </BrowserRouter>
-  </React.StrictMode>,
-  MOUNT_NODE
+  </React.StrictMode>
 );
+
+if (MOUNT_NODE.hasChildNodes()) {
+  hydrate(APP_BOOTSTRAP, MOUNT_NODE);
+} else {
+  render(APP_BOOTSTRAP, MOUNT_NODE);
+}
+
+reportWebVitals(console.info);

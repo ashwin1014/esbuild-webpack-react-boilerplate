@@ -1,13 +1,14 @@
 import React, { Suspense } from 'react';
 
-import { lazy } from '@loadable/component';
+// import { lazy } from '@loadable/component';
 import { Switch, Route } from 'react-router-dom';
 
 import { PrivateRoute } from '@hoc';
 import { Loader } from '@sharedComponents';
 import { ROUTES } from './Routes.config';
+import prerenderedLoadable from './preRenderedLoadable';
 
-const PageNotFound = lazy(() => import('@pages/NotFound/NotFound'));
+const PageNotFound = prerenderedLoadable(() => import('@pages/NotFound/NotFound'));
 
 const AppRoutes = () => {
   const isAuthenticated = false;

@@ -1,8 +1,8 @@
-import { lazy } from '@loadable/component';
-
+// import { lazy } from '@loadable/component'
 import { Home } from '@pages';
+import prerenderedLoadable from './preRenderedLoadable';
 
-const Settings = lazy(() => import('@pages/Settings/Settings'));
+const Settings = prerenderedLoadable(() => import('@pages/Settings/Settings'));
 
 export const ROUTES = [
   {
