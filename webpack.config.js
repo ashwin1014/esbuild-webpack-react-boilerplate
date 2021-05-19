@@ -2,7 +2,6 @@
 // const webpack = require('webpack');
 const chalk = require('chalk');
 const Dotenv = require('dotenv-webpack');
-const { SubresourceIntegrityPlugin } = require('webpack-subresource-integrity');
 const ESLintPlugin = require('eslint-webpack-plugin');
 const ImageMinimizerPlugin = require('image-minimizer-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
@@ -13,6 +12,7 @@ const ResourceHintWebpackPlugin = require('resource-hints-webpack-plugin');
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 const WebpackAssetsManifest = require('webpack-assets-manifest');
 const CircularDependencyPlugin = require('circular-dependency-plugin');
+const { SubresourceIntegrityPlugin } = require('webpack-subresource-integrity');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const { ESBuildMinifyPlugin } = require('esbuild-loader');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
@@ -141,9 +141,9 @@ module.exports = (_, args) => {
           use: [
             isEnvProduction && MiniCssExtractPlugin.loader,
             isEnvDevelopment && 'style-loader',
-            'css-loader',
+            'css-loader?sourceMap',
             {
-              loader: 'sass-loader',
+              loader: 'sass-loader?sourceMap',
               options: {
                 implementation: require('sass'),
                 webpackImporter: false,
@@ -161,10 +161,10 @@ module.exports = (_, args) => {
           use: [isEnvProduction && MiniCssExtractPlugin.loader, 'css-loader', 'less-loader'].filter(Boolean)
         },
         {
-          test: /\.(jpe?g|png|gif|svg)$/i,
+          test: /\.(jpe?g|png|gif|svg|webp)$/i,
           type: 'asset/resource',
           generator: {
-            filename: 'static/media/[hash][ext][query]'
+            filename: 'static/assets/images/[contenthash][ext][query]'
           }
         },
         {
@@ -180,25 +180,25 @@ module.exports = (_, args) => {
           // use: 'file-loader'
           type: 'asset/resource',
           generator: {
-            filename: 'static/media/[hash][ext][query]'
+            filename: 'static/assets/audio/[contenthash][ext][query]'
           }
         },
         {
-          test: /favicon\.png$/,
-          use: 'file-loader?name=[name].[ext]'
+          test: /favicon\.(png|ico)$/,
+          type: 'asset/resource'
         },
         {
           test: /\.(woff|woff2|eot|ttf|otf)$/i,
           type: 'asset/resource',
           generator: {
-            filename: 'static/media/fonts/[hash][ext][query]'
+            filename: 'static/assets/fonts/[contenthash][ext][query]'
           }
         },
         {
           test: /\.(mp4|webm)$/,
           type: 'asset/resource',
           generator: {
-            filename: 'static/media/fonts/[hash][ext][query]'
+            filename: 'static/assets/video/[contenthash][ext][query]'
           }
         }
       ]
@@ -210,7 +210,7 @@ module.exports = (_, args) => {
       }),
       // new ESBuildPlugin(),
       new HtmlWebpackPlugin({
-        inject: true,
+        inject: 'body',
         template: appPaths.appHtml,
         title: 'Welcome',
         ...(isEnvProduction
@@ -236,7 +236,7 @@ module.exports = (_, args) => {
       new WebpackAssetsManifest({ integrity: true }),
       new ResourceHintWebpackPlugin(),
       new SubresourceIntegrityPlugin({
-        enabled: false
+        enabled: isEnvProduction
       }),
       new Dotenv(),
       new ImageMinimizerPlugin({
@@ -307,6 +307,9 @@ module.exports = (_, args) => {
           openAnalyzer: true
         })
     ].filter(Boolean),
+    performance: {
+      hints: false
+    },
     optimization: {
       minimize: isEnvProduction,
       minimizer: [
@@ -321,6 +324,22 @@ module.exports = (_, args) => {
 
         // new CssMinimizerPlugin(), '...'
       ],
+      // splitChunks: {
+      //   chunks: 'async',
+      //   cacheGroups: {
+      //     default: {
+      //       minChunks: 2,
+      //       reuseExistingChunk: true
+      //     },
+      //     // the build will partition vendor bundles into client-vendor.js and client-vendor-react.js
+      //     vendor_react: {
+      //       test: /.*\/node_modules\/react\/index\.js/,
+      //       name: 'vendor-react',
+      //       chunks: 'initial',
+      //       enforce: true
+      //     }
+      //   }
+      // }
       runtimeChunk: 'single',
       splitChunks: {
         cacheGroups: {
@@ -329,7 +348,9 @@ module.exports = (_, args) => {
             name: 'vendors',
             chunks: 'all'
           }
-        }
+        },
+        minSize: 10000,
+        maxSize: 250000
       }
     }
   };
