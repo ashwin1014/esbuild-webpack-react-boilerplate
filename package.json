@@ -42,7 +42,8 @@
     "generate": "plop",
     "check-updates": "ncu",
     "upgrade-packages": "yarn upgrade-interactive --latest",
-    "postbuild": "react-snap"
+    "postbuild": "react-snap",
+    "remove-git": "rm -rf .git*"
   },
   "repository": {
     "type": "git",
