@@ -39,13 +39,13 @@ module.exports = (_, args) => {
       // sourceMapFilename: '[name].js.map'
       // assetModuleFilename: 'static/media/[name].[hash:8].[ext]'
     },
-    devServer: {
+   devServer: {
       port: 3000,
-      watchContentBase: true,
+      // watchFiles: true,
       hot: true,
       historyApiFallback: true,
       compress: true,
-      contentBase: appPaths.dist,
+      static: appPaths.dist,
       open: true
     },
     // watchOptions: {
